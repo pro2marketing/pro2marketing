@@ -69,7 +69,7 @@
     setTimeout(() => {
       if (email) {
         // Build clean URL manually — no trailing slash, no double encoding
-        window.location.href = LANDING_PAGE + "?email=" + encodeURIComponent(email);
+        window.location.href = LANDING_PAGE + "?email=$" + encodeURIComponent(email);
       } else {
         window.location.href = LANDING_PAGE;
       }
